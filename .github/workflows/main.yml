@@ -1,0 +1,46 @@
+name: build-bigpod
+
+on:
+  schedule:
+    - cron: '12 00 * * *'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+      
+      
+env:
+  IMAGE_REGISTRY: ghcr.io/bigpod98
+
+jobs: 
+  build-ub-standard:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v3
+    - name: build
+      shell: bash
+      working-directory: ./ubuntu/StandardEnvironment
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/standardenv:latest
+    - name: login
+      shell: bash
+      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      shell: bash
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/standardenv:latest
+  build-ub-desktopenv:
+    needs: build-ub-standard
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v3
+    - name: build
+      shell: bash
+      working-directory: ./ubuntu/DesktopEnvironment
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/desktopenv:latest
+    - name: login
+      shell: bash
+      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      shell: bash
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/desktopenv:latest
