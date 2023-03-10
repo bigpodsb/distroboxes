@@ -63,7 +63,7 @@ jobs:
   
   build-fedorabased:
     runs-on: ubuntu-22.04
-    needs: base
+    needs: build-fedora-base
     strategy:
       fail-fast: false
       matrix:
