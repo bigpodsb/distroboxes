@@ -61,23 +61,23 @@ jobs:
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
   
-  build-fedorabased:
-    runs-on: ubuntu-22.04
-    needs: build-fedora-base
-    strategy:
-      fail-fast: false
-      matrix:
-        distroboxtype: [virtenv]
-    steps:
-    - name: Checkout Push to Registry action
-      uses: actions/checkout@v3
-    - name: build
-      shell: bash
-      working-directory: ./fedora/${{matrix.distroboxtype}}
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
-    - name: login
-      shell: bash
-      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
-    - name: push
-      shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
+#  build-fedorabased:
+#    runs-on: ubuntu-22.04
+#    needs: build-fedora-base
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        distroboxtype: [virtenv]
+#    steps:
+#    - name: Checkout Push to Registry action
+#      uses: actions/checkout@v3
+#    - name: build
+#      shell: bash
+#      working-directory: ./fedora/${{matrix.distroboxtype}}
+#      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
+#    - name: login
+#      shell: bash
+#      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+#    - name: push
+#      shell: bash
+#      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
