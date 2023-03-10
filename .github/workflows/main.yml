@@ -9,50 +9,75 @@ on:
   workflow_dispatch:
       
 jobs: 
-  build-ub-standard:
+  build-ub-base:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
       shell: bash
-      working-directory: ./ubuntu/StandardEnvironment
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/standardenv:latest
+      working-directory: ./ubuntu/baseenv
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/baseenv:latest
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/standardenv:latest
-  build-ub-desktopenv:
-    needs: build-ub-standard
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/baseenv:latest
+  build-fedora-base:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
       shell: bash
-      working-directory: ./ubuntu/DesktopEnvironment
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/desktopenv:latest
+      working-directory: ./fedora/baseenv
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/baseenv:latest
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/desktopenv:latest
-  build-ub-systems:
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/baseenv:latest
+
+  build-ubbased:
     runs-on: ubuntu-22.04
+    needs: build-ub-base
+    strategy:
+      fail-fast: false
+      matrix:
+        distroboxtype: [desktopenv, standardenv, systemsenv]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
       shell: bash
-      working-directory: ./ubuntu/SystemsEnvironment
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/systemsenv:latest
+      working-directory: ./ubuntu/${{matrix.distroboxtype}}
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/systemsenv:latest
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
   
+  build-fedorabased:
+    runs-on: ubuntu-22.04
+    needs: build-ub-base
+    strategy:
+      fail-fast: false
+      matrix:
+        distroboxtype: [virtenv]
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v3
+    - name: build
+      shell: bash
+      working-directory: ./ubuntu/${{matrix.distroboxtype}}
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
+    - name: login
+      shell: bash
+      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      shell: bash
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/${{matrix.distroboxtype}}:latest
