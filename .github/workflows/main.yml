@@ -8,10 +8,6 @@ on:
       - main
   workflow_dispatch:
       
-      
-env:
-  IMAGE_REGISTRY: ghcr.io/bigpod98
-
 jobs: 
   build-ub-standard:
     runs-on: ubuntu-22.04
