@@ -6,7 +6,6 @@ on:
 jobs: 
   build-baseenvs:
     runs-on: ubuntu-22.04
-    needs: build-ub-base
     strategy:
       fail-fast: false
       matrix:
