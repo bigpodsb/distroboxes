@@ -17,7 +17,7 @@ jobs:
     - name: build
       shell: bash
       working-directory: ./ubuntu/baseenv
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/baseenv:latest
+      run: podman build . -t --manifest ubbased-baseenv-manifest --all-platforms ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/baseenv:latest
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +53,7 @@ jobs:
     - name: build
       shell: bash
       working-directory: ./ubuntu/${{matrix.distroboxtype}}
-      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
+      run: podman build . --all-platforms -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
