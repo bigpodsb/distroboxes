@@ -1,0 +1,27 @@
+name: build-bases
+
+on:
+  workflow_dispatch:
+      
+jobs: 
+  build-baseenvs:
+    runs-on: ubuntu-22.04
+    needs: build-ub-base
+    strategy:
+      fail-fast: false
+      matrix:
+        basedistro: [almalinux, alpine, arch, debian, opensuse, rockylinux, ]
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v3
+    - name: build
+      shell: bash
+      working-directory: ./${{matrix.basedistro}}/baseenv/
+      run: podman build . -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basedistro}}/baseenv:latest
+    - name: login
+      shell: bash
+      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      shell: bash
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basedistro}}/baseenv:latest
+  
