@@ -19,11 +19,11 @@ jobs:
     - name: build amd64
       shell: bash
       working-directory: ./ubuntu/baseenv
-      run: podman build . -t --manifest ubbased-baseenv-manifest --platform=linux/amd64
+      run: podman build . --manifest ubbased-baseenv-manifest --platform=linux/amd64
     - name: build arm64
       shell: bash
       working-directory: ./ubuntu/baseenv
-      run: podman build . -t --manifest ubbased-baseenv-manifest --platform=linux/arm64
+      run: podman build . --manifest ubbased-baseenv-manifest --platform=linux/arm64
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
