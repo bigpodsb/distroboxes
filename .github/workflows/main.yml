@@ -146,7 +146,7 @@ jobs:
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
 
-  build-manifests-1:
+  build-envs-manifests-1:
     runs-on: ubuntu-22.04
     needs: 
       - build-envs
