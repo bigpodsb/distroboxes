@@ -52,7 +52,9 @@ jobs:
 
   build-manifests:
     runs-on: ubuntu-22.04
-    needs: build-base setup
+    needs: 
+      - build-base
+      - setup
     strategy:
       fail-fast: false
       matrix:
