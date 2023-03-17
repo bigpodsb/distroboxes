@@ -72,13 +72,17 @@ jobs:
     - name: build
       shell: bash
       working-directory: ./${{matrix.basetype}}/baseenv
-      run: podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:${{ needs.setup.outputs.date }}-${{matrix.arch}}
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      run: podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-${{matrix.arch}}
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-${{matrix.arch}}
 
   build-manifests:
     runs-on: ubuntu-22.04
