@@ -55,8 +55,8 @@ jobs:
       name: exec datetime
       shell: bash
       run: |
-        DATE=${date %d%m%y%H%M}
-        echo "DATE=${DATE}" >> $GITHUB_OUTPUT
+        DATE=$(date +"%d%m%y%H%M")
+        echo "DATE=$(DATE)" >> $GITHUB_OUTPUT
 
   build-base:
     runs-on: ubuntu-22.04
