@@ -139,6 +139,7 @@ jobs:
     - name: push manifest
       run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
 
+
   build-envs:
     runs-on: ubuntu-22.04
     needs: 
@@ -180,6 +181,7 @@ jobs:
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
 
+
   build-envs-manifests-1:
     runs-on: ubuntu-22.04
     needs: 
@@ -211,6 +213,7 @@ jobs:
       run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
     - name: push manifest
       run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
+
 
 #  build-fedorabased:
 #    runs-on: ubuntu-22.04
