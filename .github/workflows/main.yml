@@ -65,16 +65,6 @@ jobs:
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
-    #- name: pull arm64 image
-    #  shell: bash
-    #  env:
-    #    DATE: ${{ needs.setup.outputs.date }}
-    #  run: podman pull ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-arm64
-    - name: pull amd64 image
-      shell: bash
-      env:
-        DATE: ${{ needs.setup.outputs.date }}
-      run: podman pull ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-amd64
     - name: create manifest
       shell: bash
       run: podman manifest create ${{matrix.basetype}}-manifest
@@ -106,11 +96,6 @@ jobs:
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
-    - name: pull amd64 image
-      shell: bash
-      env:
-        DATE: ${{ needs.setup.outputs.date }}
-      run: podman pull ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-amd64
     - name: create manifest
       shell: bash
       run: podman manifest create ${{matrix.basetype}}-manifest
@@ -122,26 +107,76 @@ jobs:
     - name: push manifest
       run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:latest
 
-  build-ubbased:
+  build-envs:
     runs-on: ubuntu-22.04
-    needs: build-manifests-1
+    needs: 
+      - setup
+      - build-manifests-1
+      - build-manifests-2
     strategy:
       fail-fast: false
       matrix:
+        basetype: [fedora, ubuntu]
         distroboxtype: [desktopenv, standardenv, systemsenv]
+        arch: [arm64, amd64]
+        exclude:
+          - basetype: fedora
+            arch: arm64
+          - basetype: fedora
+            distroboxtype: desktopenv
+          - basetype: fedora
+            distroboxtype: standardenv
+          - basetype: fedora
+            distroboxtype: systemsenv     
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
       shell: bash
-      working-directory: ./ubuntu/${{matrix.distroboxtype}}
-      run: podman build . --all-platforms -t ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      working-directory: ./${{matrix.basetype}}/${{matrix.distroboxtype}}
+      run: podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/ubbased/${{matrix.distroboxtype}}:latest
+      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
+
+  build-manifests-1:
+    runs-on: ubuntu-22.04
+    needs: 
+      - build-envs
+      - setup
+    strategy:
+      fail-fast: false
+      matrix:
+        basetype: [fedora, ubuntu]
+        distroboxtype: [desktopenv, standardenv, systemsenv]
+        exclude:
+          - basetype: fedora
+    steps:
+    - name: login
+      shell: bash
+      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: create manifest
+      shell: bash
+      run: podman manifest create ${{matrix.basetype}}-manifest
+    - name: add arm64
+      shell: bash
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:$DATE-arm64
+    - name: add amd64
+      shell: bash
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:$DATE-amd64
+    - name: push manifest
+      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/${{matrix.distroboxtype}}:latest
 
 #  build-fedorabased:
 #    runs-on: ubuntu-22.04
