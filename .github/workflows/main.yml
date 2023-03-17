@@ -52,7 +52,7 @@ jobs:
 
   build-manifests:
     runs-on: ubuntu-22.04
-    needs: build-base
+    needs: build-base setup
     strategy:
       fail-fast: false
       matrix:
@@ -61,6 +61,11 @@ jobs:
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: echo
+      shell: bash
+      env:
+        DATE: ${{ needs.setup.outputs.date }}
+      run: echo ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}/baseenv:$DATE-arm64
     - name: pull arm64 image
       shell: bash
       env:
