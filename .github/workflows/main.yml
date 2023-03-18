@@ -165,6 +165,9 @@ jobs:
           
           - basetype: fedora
             arch: arm64
+
+          - basetype: arch
+            arch: arm64
           
           - basetype: fedora
             distroboxtype: desktopenv
