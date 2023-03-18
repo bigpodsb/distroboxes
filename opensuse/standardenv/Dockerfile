@@ -1,0 +1,2 @@
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/opensusebased/baseenv:latest
+FROM zypper -n install nano tar zip unzip jq fish caja direnv
