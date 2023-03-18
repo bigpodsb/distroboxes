@@ -164,6 +164,9 @@ jobs:
           - distroboxtype: virtenv
           
           - basetype: fedora
+            arch: arm64
+          
+          - basetype: fedora
             distroboxtype: desktopenv
           - basetype: fedora
             distroboxtype: systemsenv
