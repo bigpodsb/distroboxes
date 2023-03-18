@@ -211,6 +211,11 @@ jobs:
         exclude:
           - basetype: fedora
           - basetype: arch
+          - basetype: almalinux
+          - basetype: alpine
+          - basetype: debian
+          - basetype: opensuse
+          - basetype: rockylinux
     steps:
     - name: login
       shell: bash
