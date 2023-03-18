@@ -237,49 +237,49 @@ jobs:
       run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
       
   
-  build-envs-manifests-2:
-    runs-on: ubuntu-22.04
-    needs: 
-      - build-envs
-      - setup
-    strategy:
-      fail-fast: false
-      matrix:
-        basetype: 
-          - fedora
-          - ubuntu
-          - almalinux
-          - alpine
-          - arch
-          - debian
-          - opensuse
-          - rockylinux
-        distroboxtype: [desktopenv, standardenv, systemsenv]
-        exclude:
-          - basetype: ubuntu
-          - basetype: fedora
-          - basetype: arch
-          - basetype: almalinux
-          - basetype: debian
-          - basetype: alpine
-          - basetype: opensuse
-          - basetype: rockylinux
-    steps:
-    - name: login
-      shell: bash
-      run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
-    - name: create manifest
-      shell: bash
-      run: podman manifest create ${{matrix.basetype}}-manifest
-    - name: add arm64
-      shell: bash
-      env:
-        DATE: ${{ needs.setup.outputs.date }}
-      run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-arm64
-    - name: add amd64
-      shell: bash
-      env:
-        DATE: ${{ needs.setup.outputs.date }}
-      run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
-    - name: push manifest
-      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
+  # build-envs-manifests-2:
+  #   runs-on: ubuntu-22.04
+  #   needs: 
+  #     - build-envs
+  #     - setup
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       basetype: 
+  #         - fedora
+  #         - ubuntu
+  #         - almalinux
+  #         - alpine
+  #         - arch
+  #         - debian
+  #         - opensuse
+  #         - rockylinux
+  #       distroboxtype: [desktopenv, standardenv, systemsenv]
+  #       exclude:
+  #         - basetype: ubuntu
+  #         - basetype: fedora
+  #         - basetype: arch
+  #         - basetype: almalinux
+  #         - basetype: debian
+  #         - basetype: alpine
+  #         - basetype: opensuse
+  #         - basetype: rockylinux
+  #   steps:
+  #   - name: login
+  #     shell: bash
+  #     run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
+  #   - name: create manifest
+  #     shell: bash
+  #     run: podman manifest create ${{matrix.basetype}}-manifest
+  #   - name: add arm64
+  #     shell: bash
+  #     env:
+  #       DATE: ${{ needs.setup.outputs.date }}
+  #     run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-arm64
+  #   - name: add amd64
+  #     shell: bash
+  #     env:
+  #       DATE: ${{ needs.setup.outputs.date }}
+  #     run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
+  #   - name: push manifest
+  #     run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
