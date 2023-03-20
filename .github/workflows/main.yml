@@ -36,8 +36,6 @@ jobs:
           - rockylinux
         arch: [arm64, amd64]
         exclude:
-        - basetype: fedora
-          arch: arm64
         - basetype: arch
           arch: arm64
     steps:
