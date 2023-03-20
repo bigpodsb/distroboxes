@@ -322,10 +322,10 @@ jobs:
       - name: create manifest
         shell: bash
         run: podman manifest create ${{matrix.basetype}}-manifest
-      - name: add arm64
+      - name: add amd64
         shell: bash
         env:
           DATE: ${{ needs.setup.outputs.date }}
-        run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-arm64
+        run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
       - name: push manifest
         run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
