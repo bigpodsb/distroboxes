@@ -2,7 +2,7 @@ FROM ubuntu:lunar
 RUN apt update && apt upgrade -y
 RUN apt install -y --no-install-recommends bc curl diffutils findutils less passwd pinentry-tty sudo util-linux wget ncurses-base ncurses-bin adduser \
 apt-utils dialog dirmngr gnupg gnupg-l10n gnupg-utils gnupg2 gpg ca-certificates libnsl2 libpython3-stdlib gpg-agent gpg-wks-client gpg-wks-server \
-gpgsm libksba8 libnpth0 libpython3.11-minimal gpgconf libnss-myhostname libsqlite3-0 libtirpc-common libtirpc3 libvte-2.91-common openssl libdrm-intel1 \
+gpgsm libksba8 libnpth0 libpython3.11-minimal gpgconf libnss-myhostname libsqlite3-0 libtirpc-common libtirpc3 libvte-2.91-common openssl \
 libvte-common lsof pinentry-curses time libpython3.11-stdlib libvulkan1 media-types mesa-vulkan-drivers libbsd0 libdrm-amdgpu1 libdrm-common \
 libdrm-nouveau2 libdrm-radeon1 libdrm2 libedit2 libegl-mesa0 libegl1 libegl1-mesa libelf1 libexpat1 libgbm1 libgl1 libgl1-amber-dri libgl1-mesa-dri \
 libgl1-mesa-glx libglapi-mesa libglvnd0 libglx-mesa0 libglx0 libicu72 libllvm15 libpciaccess0 libsensors-config libsensors5 libwayland-client0 \
