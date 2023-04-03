@@ -40,13 +40,6 @@ jobs:
           arch: arm64
         - basetype: arch
           arch: arm64
-        include:
-        - basetype: ubuntu
-          version: latest
-        - basetype: ubuntu
-          version: lunatic
-        - basetype: ubuntu
-          version: jammy
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
