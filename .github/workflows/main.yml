@@ -40,6 +40,13 @@ jobs:
           arch: arm64
         - basetype: arch
           arch: arm64
+        include:
+        - basetype: ubuntu
+          version: latest
+        - basetype: ubuntu
+          version: lunatic
+        - basetype: ubuntu
+          version: jammy
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
@@ -50,7 +57,12 @@ jobs:
       working-directory: ./${{matrix.basetype}}/baseenv
       env:
         DATE: ${{ needs.setup.outputs.date }}
-      run: podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
+      run: | 
+        if [ ${{matrix.version}} = "" ]; then
+          podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
+        else
+          podman build . --platform=linux/${{matrix.arch}} --build-arg VERSION=${{matrix.version}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
+        fi
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
