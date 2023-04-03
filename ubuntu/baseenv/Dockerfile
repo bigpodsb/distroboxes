@@ -1,4 +1,6 @@
-FROM ubuntu:lunar
+ARG VERSION=latest
+
+FROM ubuntu:$VERSION
 RUN apt update && apt upgrade -y
 RUN apt install -y --no-install-recommends bc curl diffutils findutils less passwd pinentry-tty sudo util-linux wget ncurses-base ncurses-bin adduser \
 apt-utils dialog dirmngr gnupg gnupg-l10n gnupg-utils gnupg2 gpg ca-certificates libnsl2 libpython3-stdlib gpg-agent gpg-wks-client gpg-wks-server \
