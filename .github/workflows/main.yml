@@ -308,9 +308,7 @@ jobs:
           - basetype: alpine
           - basetype: opensuse
           - basetype: rockylinux
-          
-          - basetype: fedora
-            distroboxtype: desktopenv
+      
           - basetype: fedora
             distroboxtype: systemsenv
           - basetype: arch
