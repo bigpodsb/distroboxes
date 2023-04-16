@@ -1,2 +1,2 @@
-FROM ghcr.io/bigpodsb/distroboxes/fedorabased/baseenv:latest
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/fedorabased/baseenv:latest
 RUN dnf5 install -y virt-manager libvirt qemu qemu-user-static qemu-user-binfmt
