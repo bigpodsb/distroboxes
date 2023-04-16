@@ -172,9 +172,7 @@ jobs:
 
           - basetype: arch
             arch: arm64
-          
-          - basetype: fedora
-            distroboxtype: desktopenv
+            
           - basetype: fedora
             distroboxtype: systemsenv
           - basetype: almalinux
