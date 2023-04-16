@@ -1,2 +1,2 @@
-FROM ghcr.io/bigpodsb/distroboxes/ubuntubased/baseenv:latest
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/ubuntubased/baseenv:latest
 RUN apt install openssh-client -y
