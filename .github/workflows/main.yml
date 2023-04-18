@@ -165,9 +165,6 @@ jobs:
         exclude:
           - distroboxtype: virtenv
           
-          - basetype: fedora
-            arch: arm64
-
           - basetype: arch
             arch: arm64
             
@@ -238,8 +235,9 @@ jobs:
         distroboxtype: [desktopenv, standardenv, systemsenv]
         exclude:
           - basetype: arch
+
           - basetype: fedora
-          
+            distroboxtype: systemsenv          
           - basetype: almalinux
             distroboxtype: desktopenv
           - basetype: almalinux
@@ -306,9 +304,8 @@ jobs:
           - basetype: alpine
           - basetype: opensuse
           - basetype: rockylinux
-      
           - basetype: fedora
-            distroboxtype: systemsenv
+
           - basetype: arch
             distroboxtype: desktopenv
           - basetype: arch
