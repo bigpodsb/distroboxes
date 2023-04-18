@@ -36,8 +36,6 @@ jobs:
           - rockylinux
         arch: [arm64, amd64]
         exclude:
-        - basetype: fedora
-          arch: arm64
         - basetype: arch
           arch: arm64
     steps:
@@ -83,7 +81,6 @@ jobs:
           - opensuse
           - rockylinux
         exclude:
-          - basetype: fedora
           - basetype: arch
     steps:
     - name: login
@@ -123,6 +120,7 @@ jobs:
           - opensuse
           - rockylinux
         exclude:
+          - basetype: fedora
           - basetype: ubuntu
           - basetype: almalinux
           - basetype: debian
