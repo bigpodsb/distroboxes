@@ -38,7 +38,6 @@ jobs:
         exclude:
         - basetype: arch
           arch: arm64
-        - basetype: almalinux
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
