@@ -1,3 +1,3 @@
 FROM alpine:latest
 RUN apk update
-RUN apk add bc fish diffutils findutils less ncurses pinentry procps sudo wget util-linux shadow vte3 curl
+RUN apk add fish alpine-base bash bash-completion bc bzip2 coreutils curl diffutils docs findmnt findutils gcompat gnupg gpg iproute2 iputils keyutils less libc-utils libcap lsof man-pages mandoc mount musl-utils ncurses ncurses-terminfo net-tools openssh-client pigz pinentry procps rsync shadow su-exec sudo tar tcpdump tree tzdata umount unzip util-linux util-linux-misc vte3 wget which xauth xz zip mesa-dri-gallium mesa-vulkan-ati mesa-vulkan-intel mesa-vulkan-layers mesa-vulkan-swrast vulkan-loader

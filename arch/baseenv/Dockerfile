@@ -1,3 +1,3 @@
 FROM archlinux:latest
 RUN pacman -Syyu --noconfirm
-RUN pacman -S --noconfirm bc curl findutils diffutils less shadow ncurses pinentry sudo wget procps-ng util-linux vte3 lsof time gnupg vulkan-intel vulkan-radeon
+RUN pacman -S --noconfirm fish bash-completion bc curl diffutils findutils glibc gnupg inetutils keyutils less lsof man-db man-pages mlocate mtr ncurses nss-mdns openssh pigz pinentry procps-ng rsync shadow sudo tcpdump time traceroute tree tzdata unzip util-linux util-linux-libs vte-common wget words xorg-xauth zip mesa opengl-driver vulkan-intel vte-common vulkan-radeon

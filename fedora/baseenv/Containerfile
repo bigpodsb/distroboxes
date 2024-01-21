@@ -1,3 +1,2 @@
-FROM fedora-minimal:38
-RUN dnf5 install -y bc curl diffutils findutils less ncurses passwd pinentry procps-ng shadow-utils sudo util-linux vte-profile wget util-linux-user time lsof \
-mesa-dri-drivers mesa-vulkan-drivers 
+FROM fedora-minimal:39
+RUN dnf5 install -y fish bash-completion bc bzip2 diffutils dnf-plugins-core findutils glibc-all-langpacks glibc-locale-source gnupg2 gnupg2-smime hostname iproute iputils keyutils krb5-libs less lsof man-db man-pages mtr ncurses nss-mdns openssh-clients pam passwd pigz pinentry procps-ng rsync shadow-utils sudo tcpdump time traceroute tree tzdata unzip util-linux vte-profile wget which whois words xorg-x11-xauth xz zip mesa-dri-drivers mesa-vulkan-drivers vulkan

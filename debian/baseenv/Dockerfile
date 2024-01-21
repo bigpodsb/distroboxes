@@ -1,8 +1,3 @@
 FROM debian:latest
 RUN apt update && apt upgrade -y
-RUN apt install -y --no-install-recommends bc curl diffutils findutils less passwd pinentry-tty sudo util-linux wget ncurses-base ncurses-bin dirmngr gnupg gnupg-l10n \
-gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm libksba8 libnpth0 psmisc libdrm-amdgpu1 libdrm-common libdrm-nouveau2 libdrm-radeon1 libdrm2 \
-libedit2 libegl-mesa0 libegl1 libelf1 libgbm1 libgl1 libgl1-mesa-dri libglapi-mesa libglvnd0 libglx-mesa0 libglx0 libsensors-config libsensors5 libvulkan1 \
-libwayland-client0 libwayland-server0 libx11-6 libx11-data libx11-xcb1 libxau6 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0 libxcb-shm0 \
-libxcb-sync1 libxcb-xfixes0 libxcb1 libxdamage1 libxdmcp6 libxext6 libxfixes3 libxshmfence1 libxxf86vm1 libz3-4 mesa-vulkan-drivers libpciaccess0 apt-utils dialog gnupg2 \
-libnss-myhostname libvte-2.91-common libvte-common lsof pinentry-curses procps time libegl1-mesa libgl1-mesa-glx
+RUN apt install -y --no-install-recommends fish apt-utils bash-completion bc bzip2 curl dialog diffutils findutils gnupg gnupg2 gpgsm hostname iproute2 iputils-ping keyutils less libcap2-bin libkrb5-3 libnss-mdns libnss-myhostname libvte-2.9*-common libvte-common locales lsof man-db manpages mtr ncurses-base openssh-client passwd pigz pinentry-curses procps rsync sudo tcpdump time traceroute tree tzdata unzip util-linux wget xauth xz-utils zip libgl1 libegl1-mesa libgl1-mesa-glx libegl1 libglx-mesa0 libvulkan1 mesa-vulkan-drivers
