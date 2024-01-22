@@ -160,7 +160,7 @@ jobs:
           - debian
           - opensuse
           - rockylinux
-        distroboxtype: [desktopenv, standardenv, systemsenv, virtenv]
+        distroboxtype: [desktopenv, standardenv, systemsenv, virtenv, shellenv]
         arch: [arm64, amd64]
         exclude:
           - distroboxtype: virtenv
@@ -232,7 +232,7 @@ jobs:
           - debian
           - opensuse
           - rockylinux
-        distroboxtype: [desktopenv, standardenv, systemsenv]
+        distroboxtype: [desktopenv, standardenv, systemsenv, shellenv]
         exclude:
           - basetype: arch
 
@@ -296,7 +296,7 @@ jobs:
           - debian
           - opensuse
           - rockylinux
-        distroboxtype: [desktopenv, standardenv, systemsenv]
+        distroboxtype: [desktopenv, standardenv, systemsenv, shellenv]
         exclude:
           - basetype: ubuntu
           - basetype: almalinux
