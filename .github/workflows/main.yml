@@ -21,6 +21,10 @@ jobs:
 
   build-dependency:
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, amd64]
     needs: setup
     steps: 
     - name: Checkout Push to Registry action
@@ -29,7 +33,7 @@ jobs:
       uses: docker/setup-qemu-action@v1
     - name: build
       shell: bash
-      working-directory: ./commonSnipets
+      working-directory: ./commonSnippets
       env:
         DATE: ${{ needs.setup.outputs.date }}
       run: | 
