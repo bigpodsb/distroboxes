@@ -1,0 +1,3 @@
+ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak
+ln -s /usr/bin/distrobox-host-exec /usr/bin/podman
+echo "host exec linked"
