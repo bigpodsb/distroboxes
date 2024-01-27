@@ -102,7 +102,7 @@ jobs:
       env:
         DATE: ${{ needs.setup.outputs.date }}
       run: | 
-          podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
+        podman build . --platform=linux/${{matrix.arch}} -t ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
