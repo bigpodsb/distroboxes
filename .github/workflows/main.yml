@@ -51,6 +51,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: 
       - build-dependency
+      - setup
     steps:
     - name: login
       shell: bash
