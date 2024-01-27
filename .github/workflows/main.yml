@@ -57,7 +57,7 @@ jobs:
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: create manifest
       shell: bash
-      run: podman manifest create ${{matrix.basetype}}-manifest
+      run: podman manifest create dependency-manifest
     - name: add arm64
       shell: bash
       env:
@@ -69,7 +69,7 @@ jobs:
         DATE: ${{ needs.setup.outputs.date }}
       run: podman manifest add dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:$DATE-amd64
     - name: push manifest
-      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest
+      run: podman manifest push dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest
 
   build-base:
     runs-on: ubuntu-22.04
