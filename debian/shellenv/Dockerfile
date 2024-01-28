@@ -1,3 +1,5 @@
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest AS dependency
+
 FROM ghcr.io/bigpod98/bigpodsb/distroboxes/debianbased/baseenv:latest
 RUN apt install -y bash fish
 RUN mkdir /dependency

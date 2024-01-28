@@ -1,3 +1,5 @@
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest AS dependency
+
 FROM ghcr.io/bigpod98/bigpodsb/distroboxes/rockylinuxbased/baseenv:latest
 RUN dnf install -y bash
 RUN mkdir /dependency

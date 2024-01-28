@@ -1,3 +1,5 @@
+FROM ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest AS dependency
+
 FROM ghcr.io/bigpod98/bigpodsb/distroboxes/opensusebased/baseenv:latest
 RUN zypper install -n bash fish
 RUN mkdir /dependency
