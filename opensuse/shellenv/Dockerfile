@@ -1,4 +1,6 @@
 FROM ghcr.io/bigpod98/bigpodsb/distroboxes/opensusebased/baseenv:latest
 RUN zypper install -n bash fish
-RUN sudo ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak
-RUN sudo ln -s /usr/bin/distrobox-host-exec /usr/bin/podman
+RUN mkdir /dependency
+COPY --from=dependency /* /dependency/
+RUN bash /dependency/host-exec-links
+RUN rm -rf /dependency
