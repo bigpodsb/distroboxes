@@ -45,7 +45,7 @@ jobs:
       shell: bash
       env:
         DATE: ${{ needs.setup.outputs.date }}
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:$DATE-${{matrix.arch}}
+      run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:$DATE-${{matrix.arch}}
 
   manifest-dependency:
     runs-on: ubuntu-22.04
@@ -70,7 +70,7 @@ jobs:
         DATE: ${{ needs.setup.outputs.date }}
       run: podman manifest add dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:$DATE-amd64
     - name: push manifest
-      run: podman manifest push dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest
+      run: podman manifest push --compression-format=zstd:chunked --compression-level=7 dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest
 
   build-base:
     runs-on: ubuntu-22.04
@@ -112,7 +112,7 @@ jobs:
       shell: bash
       env:
         DATE: ${{ needs.setup.outputs.date }}
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
+      run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
 
   build-manifests-1:
     runs-on: ubuntu-22.04
@@ -151,7 +151,7 @@ jobs:
         DATE: ${{ needs.setup.outputs.date }}
       run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-amd64
     - name: push manifest
-      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
+      run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
       
   build-manifests-2:
     runs-on: ubuntu-22.04
@@ -191,7 +191,7 @@ jobs:
         DATE: ${{ needs.setup.outputs.date }}
       run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-amd64
     - name: push manifest
-      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
+      run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
 
   build-envs:
     runs-on: ubuntu-22.04
@@ -263,7 +263,7 @@ jobs:
       env:
         DATE: ${{ needs.setup.outputs.date }}
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
+      run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
 
   build-envs-manifests-1:
     runs-on: ubuntu-22.04
@@ -327,7 +327,7 @@ jobs:
         DATE: ${{ needs.setup.outputs.date }}
       run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
     - name: push manifest
-      run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
+      run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
       
   build-envs-manifests-2:
     runs-on: ubuntu-22.04
@@ -373,4 +373,4 @@ jobs:
           DATE: ${{ needs.setup.outputs.date }}
         run: podman manifest add ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-amd64
       - name: push manifest
-        run: podman manifest push ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
+        run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest

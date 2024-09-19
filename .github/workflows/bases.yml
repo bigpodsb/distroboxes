@@ -22,5 +22,5 @@ jobs:
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basedistro}}/baseenv:latest
+      run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basedistro}}/baseenv:latest
   
