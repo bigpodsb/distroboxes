@@ -10,7 +10,7 @@ on:
       
 jobs: 
   setup:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       date: ${{ steps.exec-datetime.outputs.DATE }}
     steps:
@@ -20,7 +20,7 @@ jobs:
       run: echo "DATE=$(date +"%d%m%y%H%M")" >> $GITHUB_OUTPUT
 
   build-dependency:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -48,7 +48,7 @@ jobs:
       run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:$DATE-${{matrix.arch}}
 
   manifest-dependency:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - build-dependency
       - setup
@@ -73,7 +73,7 @@ jobs:
       run: podman manifest push --compression-format=zstd:chunked --compression-level=7 dependency-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/dependency:latest
 
   build-base:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - manifest-dependency
       - setup
@@ -115,7 +115,7 @@ jobs:
       run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:$DATE-${{matrix.arch}}
 
   build-manifests-1:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - build-base
       - setup
@@ -154,7 +154,7 @@ jobs:
       run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
       
   build-manifests-2:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - build-base
       - setup
@@ -194,7 +194,7 @@ jobs:
       run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/baseenv:latest
 
   build-envs:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - setup
       - build-manifests-1
@@ -266,7 +266,7 @@ jobs:
       run: podman push --compression-format=zstd:chunked --compression-level=7 ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:$DATE-${{matrix.arch}}
 
   build-envs-manifests-1:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - build-envs
       - setup
@@ -330,7 +330,7 @@ jobs:
       run: podman manifest push --compression-format=zstd:chunked --compression-level=7 ${{matrix.basetype}}-manifest ghcr.io/bigpod98/bigpodsb/distroboxes/${{matrix.basetype}}based/${{matrix.distroboxtype}}:latest
       
   build-envs-manifests-2:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: 
       - build-envs
       - setup
