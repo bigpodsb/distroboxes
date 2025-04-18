@@ -1,4 +1,4 @@
-FROM ubuntu:lunar
+FROM ubuntu:latest
 RUN apt update && apt upgrade -y && apt install -y --no-install-recommends 
 RUN apt install -y fish apt-utils bash-completion bc bzip2 curl dialog diffutils findutils gnupg 
 RUN apt install -y gnupg2 gpgsm hostname iproute2 iputils-ping keyutils language-pack-en less libcap2-bin 
